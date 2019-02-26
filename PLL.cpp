@@ -14,7 +14,6 @@ void calculate_loop_coefficients(float tau[2], float LBW, float zeta, float k){
 
 int main() {
   unsigned idx, tbl1, tbl2, idx1;
-  char num1, num2;
   float PDIcarr = 0.001, tau[2];
   float BasisFreq = 9548000, TargetFreq = 9548500, SampleFreq = 38192000;
   float carrError = 0.0, oldcarrError = 0.0, NewFreq = 0.0;
