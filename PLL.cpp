@@ -17,7 +17,7 @@ int main() {
   float PDIcarr = 0.001, tau[2];
   float BasisFreq = 9548000, TargetFreq = 9548500, SampleFreq = 38192000;
   float carrError = 0.0, oldcarrError = 0.0, NewFreq = 0.0;
-  unsigned long carrNCO = 0, oldcarrNCO = 0, NewPhase = 0;
+  long int carrNCO = 0, oldcarrNCO = 0, NewPhase = 0;
   long int I = 0, Q = 0;
   NCO  Target(5, SampleFreq);
   NCO  Start(5, SampleFreq);
