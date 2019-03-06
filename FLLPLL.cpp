@@ -14,7 +14,7 @@ int main() {
   float FSample = 38192000, RefFreq = 9548000, OutFreq = 9548100, PDItime = 0.001;
   double dot = 0.0, cross = 0.0, FreqError = 5000.0, NewFreq = 0.0, LastFreq = 0.0;
   double Error = 0.0, LastError = 0.0, Phi = 0.0, LastPhi = 0.0;
-  double  Wn = 47.14, Tau1 = 1/47.14, Tau2 = 2 * 0.707 / 47.14;
+  double  Wn = 47.14, Tau1 = 1/47.14, Tau2 = 2 * 0.707 / 47.14; // Tau1 is wrong!
   long int I1, I2, Q1, Q2;
   I1 = I2 = Q1 = Q2 = 1;
   NCO out (5, FSample);
@@ -25,6 +25,7 @@ int main() {
   ref.SetFrequency(RefFreq);
 NewFreq = OutFreq;
 LastFreq = RefFreq;
+  printf("tau1: %5.3e tau2: %5.3e\n", Tau1, Tau2);
 /*  printf("length: %d mask: %3d dPhase: %3d\n", a.m_len, a.m_mask, a.m_dphase);
   for (idx=0; idx<37; idx++) {
     printf("%10lu %3d %9.3f %9.3f\n",
