@@ -36,10 +36,10 @@ while (abs(out.Frequency - RefFreq) > 1) {
 //  for (idx=0; idx<1000; idx++) {
 
    for (n = 0; n<38192; n++) {
-    ref_i = ref.clk();
-    out_i = out.clk();
-    Q1 += (long int) (ref.m_costable[ref_i] * out.m_costable[out_i]);
-    I1 += (long int) (ref.m_sintable[ref_i] * out.m_costable[out_i]);
+    ref.clk();
+    out.clk();
+    Q1 += (long int) (ref.cosine(ref.idx) * out.cosine(out.idx));
+    I1 += (long int) (ref.sine(ref.idx)   * out.sine(out.idx));
    }
    printf("I1%11ld Q1%11ld ", I1, Q1);
 //   if (I1 == 0) I1 = 1;
@@ -50,10 +50,10 @@ while (abs(out.Frequency - RefFreq) > 1) {
    out.SetFrequency(out.Frequency - Phi * 1.0);
 //    printf("Error: %9.3f Phi: %9.3f\n", Error, Phi);
    for (n=0; n<38192; n++) {
-    ref_i = ref.clk();
-    out_i = out.clk();
-    Q2 += (long int) (ref.m_costable[ref_i] * out.m_costable[out_i]);
-    I2 += (long int) (ref.m_sintable[ref_i] * out.m_costable[out_i]);
+    ref.clk();
+    out.clk();
+    Q2 += (long int) (ref.cosine(ref.idx) * out.cosine(out.idx));
+    I2 += (long int) (ref.sine(ref.idx)   * out.sine(out.idx));
    }
    printf("I2%11ld Q2%11ld ", I2, Q2);
 //   if (I2 == 0) I2 = 1;
