@@ -9,6 +9,7 @@
 using namespace std;
 
 int main() {
+  FILE * outfile = fopen("FLLPLL.dat", "w");
   long int idx=0, n, ref_i, out_i, index = 0;
   float FSample = 38192000, RefFreq = 9548000, OutFreq = 9548100, PDItime = 0.001;
   double dot = 0.0, cross = 0.0, FreqError = 5000.0, NewFreq = 0.0, LastFreq = 0.0;
@@ -69,9 +70,11 @@ while (abs(out.Frequency - RefFreq) > 1) {
 //   out.SetFrequency(OutFreq + FreqError/8);
 //   printf("%3ld %9.3f %9.0f\n", idx+1, FreqError, NewFreq);
    printf("idx%5ld FErr:%9.3f F:%9.0f\n", idx++, out.Frequency - RefFreq, out.Frequency);
+   fprintf(outfile, "%9.3f\n", out.Frequency - RefFreq);
    LastFreq = NewFreq;
    NewFreq += FreqError * 1.0;
 //   out.SetFrequency(NewFreq);
    I1=I2=Q1=Q2=1;
   }
+  fclose(outfile);
 }
