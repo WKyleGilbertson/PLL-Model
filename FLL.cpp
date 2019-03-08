@@ -37,14 +37,14 @@ LastFreq = RefFreq;
    for (n = 0; n<38192; n++) {
     ref.clk();
     out.clk();
-    Q1 += (long int) (ref.m_costable[ref.idx] * out.m_costable[out.idx]);
-    I1 += (long int) (ref.m_sintable[ref.idx] * out.m_costable[out.idx]);
+    I1 += (long int) (ref.m_costable[ref.idx] * out.m_costable[out.idx]);
+    Q1 += (long int) (ref.m_sintable[ref.idx] * out.m_costable[out.idx]);
    }
    for (n=0; n<38192; n++) {
     ref.clk();
     out.clk();
-    Q2 += (long int) (ref.m_costable[ref.idx] * out.m_costable[out.idx]);
-    I2 += (long int) (ref.m_sintable[ref.idx] * out.m_costable[out.idx]);
+    I2 += (long int) (ref.m_costable[ref.idx] * out.m_costable[out.idx]);
+    Q2 += (long int) (ref.m_sintable[ref.idx] * out.m_costable[out.idx]);
    }
    dot   = I1 * I2 + Q1 * Q2;
    cross = I1 * Q2 - I2 * Q1;

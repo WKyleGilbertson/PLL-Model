@@ -30,8 +30,8 @@ while (abs(out.Frequency - RefFreq) > 1 && abs(out.Frequency - RefFreq) < 1000) 
    for (n = 0; n<38192; n++) {
     ref.clk();
     out.clk();
-    Q1 += (long int) (ref.cosine(ref.idx) * out.cosine(out.idx));
-    I1 += (long int) (ref.sine(ref.idx)   * out.sine(out.idx));
+    I1 += (long int) (ref.cosine(ref.idx) * out.cosine(out.idx));
+    Q1 += (long int) (ref.sine(ref.idx)   * out.sine(out.idx));
    }
 //   printf("I1%11ld Q1%11ld ", I1, Q1);
    Error = atan(Q1/I1)/(2*M_PI);
@@ -42,8 +42,8 @@ while (abs(out.Frequency - RefFreq) > 1 && abs(out.Frequency - RefFreq) < 1000) 
    for (n=0; n<38192; n++) {
     ref.clk();
     out.clk();
-    Q2 += (long int) (ref.cosine(ref.idx) * out.cosine(out.idx));
-    I2 += (long int) (ref.sine(ref.idx)   * out.sine(out.idx));
+    I2 += (long int) (ref.cosine(ref.idx) * out.cosine(out.idx));
+    Q2 += (long int) (ref.sine(ref.idx)   * out.sine(out.idx));
    }
 //   printf("I2%11ld Q2%11ld ", I2, Q2);
    Error = atan(Q2/I2)/(2*M_PI);
