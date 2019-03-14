@@ -13,7 +13,7 @@ using namespace std;
 int main() {
   long int idx=0, n, ref_i, out_i, index = 0;
   float FSample = 38192000, RefFreq = 9548000, OutFreq = 9548405, PDItime = 0.001;
-  double FreqError = 0.0, NewFreq = 0.0, cross, dot;
+  double FreqError = 0.0, NewFreq = 0.0, cross, dot, Ips1, Qps1, Ips2, Qps2;
   long int I1, I2, Q1, Q2;
 //  long long int cross, dot;
   I1 = I2 = Q1 = Q2 = 1;
@@ -26,21 +26,27 @@ int main() {
 //while (abs(LastFreq - NewFreq) > 100) {
   for (idx=0; idx<25; idx++) {
 
-   for (n = 0; n<38192; n++) {
+   for (n = 0; n<FSample*PDItime; n++) {
     ref.clk();
     out.clk();
     I1 += (ref.sine(ref.idx) * out.sine(out.idx));
     Q1 += (ref.sine(ref.idx) * out.cosine(out.idx));
 //    if (n == 0) printf("%ld %ld", I1, Q1);
    }
-   for (n=0; n<38192; n++) {
+   Ips1 = I1 / (FSample*PDItime);
+   Qps1 = Q1 / (FSample*PDItime);
+   for (n=0; n<FSample*PDItime; n++) {
     ref.clk();
     out.clk();
     I2 += (ref.sine(ref.idx) * out.sine(out.idx));
     Q2 += (ref.sine(ref.idx) * out.cosine(out.idx));
    }
-   dot   = (double) (I1 * I2 + Q1 * Q2);
-   cross = (double) (I1 * Q2 - I2 * Q1);
+   Ips2 = I2 / (FSample*PDItime);
+   Qps2 = Q2 / (FSample*PDItime);
+   dot   = (Ips1 * Ips2 + Qps1 * Qps2);
+   cross = (Ips1 * Qps2 - Ips2 * Qps1);
+   //dot   = (double) (I1 * I2 + Q1 * Q2);
+   //cross = (double) (I1 * Q2 - I2 * Q1);
    FreqError = atan2(cross, dot) / (2 * M_PI * PDItime);
    NewFreq = out.Frequency + FreqError / 1.0;
    printf("%4ld CalcErr:%9.3f ActErr:%9.3f Fnow:%9.0f Fnxt:%7.0f\n",
