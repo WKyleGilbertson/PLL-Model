@@ -9,7 +9,7 @@ using namespace std;
 int main() {
   FILE * outfile = fopen("FLLPLL.dat", "w");
   long int idx=0, n, ref_i, out_i, index = 0;
-  float FSample = 38192000, RefFreq = 9548000, OutFreq = 9548450, PDItime = 0.001;
+  float FSample = 38192000, RefFreq = 9548000, OutFreq = 9548235, PDItime = 0.001;
   double dot = 0.0, cross = 0.0, FreqError = 5000.0, NewFreq = 0.0;
   double Ips1, Ips2, Qps1, Qps2;
   double Error = 0.0, LastError = 0.0, Phi = 0.0, LastPhi = 0.0;
