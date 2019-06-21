@@ -13,11 +13,17 @@ NCO::NCO(const int lgtblsize, const float m_sample_clk) {
 
     // m_mask is 1 for any bit used in the index, zero otherwise
     m_mask = m_len - 1;
-    m_sintable = new char[m_len];
+    /*(m_sintable = new char[m_len];
     m_costable = new char[m_len];
     for (k = 0; k < m_len; k++) {
         m_sintable[k] = (char) (m_len) * sin(2.0 * M_PI * k / (double) m_len);
         m_costable[k] = (char) (m_len) * cos(2.0 * M_PI * k / (double) m_len);
+        */
+    m_sintable = new float[m_len];
+    m_costable = new float[m_len];
+    for (k = 0; k < m_len; k++) {
+        m_sintable[k] = sin(2.0 * M_PI * k / (double) m_len);
+        m_costable[k] = cos(2.0 * M_PI * k / (double) m_len);
     }
     // m_phase is the variable holding our PHI[n] function from above.
     // We'll initialize our initial phase and frequency to zero
@@ -32,6 +38,7 @@ NCO::~NCO(void) {
 
 void NCO::SetFrequency(float f) {
     // Convert the frequency to a fractional difference in phase
+//    Frequency = f * 112.5 - pow(2, 32)/4; // NCO bias... Is this needed?
     m_dphase = (unsigned long)(f * ONE_ROTATION / SAMPLE_RATE);
     Frequency = f;
 }
@@ -53,10 +60,10 @@ unsigned NCO::clk(void) {
 	return idx;
 }
 
-char NCO::cosine(int idx) {
+float NCO::cosine(int idx) {
 	return m_costable[idx];
 }
 
-char NCO::sine(int idx) {
+float NCO::sine(int idx) {
 	return m_sintable[idx];
 }

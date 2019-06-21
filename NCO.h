@@ -11,11 +11,13 @@ public:
   const float ONE_ROTATION = (float) 2.0 * (1u << 31);
   float SAMPLE_RATE, Frequency;
   unsigned long m_lglen, m_len, m_mask, m_phase, m_dphase, k, idx;
-  char * m_sintable, * m_costable, m_sample_clk;
+  float * m_sintable, * m_costable;
+  char m_sample_clk;
+//  char * m_sintable, * m_costable, m_sample_clk;
   NCO(const int lgtblsize, const float m_sample_clk);
   ~NCO(void);
   void SetFrequency(float f);
   unsigned clk(void);
-  char sine(int idx);
-  char cosine(int idx);
+  float sine(int idx);
+  float cosine(int idx);
 };
