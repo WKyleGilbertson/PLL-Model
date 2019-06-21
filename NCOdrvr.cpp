@@ -9,7 +9,7 @@ int main() {
   char num;
   NCO n(5, 38.192e6);
   //NCO m(5, 38.192e6);
-  n.frequency(9.5486e6);
+  n.SetFrequency(9.5486e6);
   //m.frequency(9.9486e6);
  
   for (idx = 0; idx < 1 << 4; idx++) {
