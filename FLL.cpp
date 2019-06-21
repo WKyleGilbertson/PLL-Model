@@ -1,5 +1,5 @@
-/* Filename: testNCO.cpp                                          2019-03-05 */
-// Verify NCO model works
+/* Filename: FLL.cpp                                          2019-06-21 */
+
 //#ifndef M_PI
 //#define M_PI 3.14159265358979323846
 //#endif
@@ -13,7 +13,7 @@ using namespace std;
 int main() {
   long int idx=0, n, ref_i, out_i, index = 0;
   float FSample = 38192000, RefFreq = 9548000, OutFreq = 9548235, PDItime = 0.001;
-  double FreqError = 0.0, NewFreq = 0.0, cross, dot, Ips1, Qps1, Ips2, Qps2;
+  double FreqError = 1000.0, NewFreq = 0.0, cross, dot, Ips1, Qps1, Ips2, Qps2;
   long int I1, I2, Q1, Q2;
   char SampleData;
 //  long long int cross, dot;
@@ -24,15 +24,15 @@ int main() {
   out.SetFrequency(OutFreq);
   ref.SetFrequency(RefFreq);
 
-//while (abs(LastFreq - NewFreq) > 100) {
-  for (idx=0; idx<10; idx++) {
+while (abs(FreqError) > 10) {
+//  for (idx=0; idx<25; idx++) {
 
    for (n = 0; n<FSample*PDItime; n++) {
     ref.clk();
     out.clk();
-    SampleData = ref.sine(ref.idx);
-    I1 += SampleData * out.sine(out.idx);
-    Q1 += SampleData * out.cosine(out.idx);
+    SampleData = round(ref.sine(ref.idx) * (1<<3));
+    I1 += SampleData * round(out.sine(out.idx)*(1<<5));
+    Q1 += SampleData * round(out.cosine(out.idx)*(1<<5));
 //    if (n == 0) printf("%ld %ld", I1, Q1);
    }
    Ips1 = I1 / (FSample*PDItime);  // Normalize accumulated integration
@@ -41,9 +41,9 @@ int main() {
    for (n=0; n<FSample*PDItime; n++) {
     ref.clk();
     out.clk();
-    SampleData = ref.sine(ref.idx);
-    I2 += SampleData * out.sine(out.idx);
-    Q2 += SampleData * out.cosine(out.idx);
+    SampleData = round(ref.sine(ref.idx) * (1<<3));
+    I1 += SampleData * round(out.sine(out.idx)*(1<<5));
+    Q1 += SampleData * round(out.cosine(out.idx)*(1<<5));
    }
    Ips2 = I2 / (FSample*PDItime);
    Qps2 = Q2 / (FSample*PDItime);
