@@ -32,9 +32,9 @@ int main() {
    for (n = 0; n<FSample*PDItime; n++) {
     ref.clk();
     out.clk();
-    SampleData = ref.sine(ref.idx);
-    I1 += SampleData * out.sine(out.idx);
-    Q1 += SampleData * out.cosine(out.idx);
+    SampleData = ref.sine(ref.idx) * (1<<5);
+    I1 += SampleData * round(out.sine(out.idx) * (1<<5));
+    Q1 += SampleData * round(out.cosine(out.idx)*(1<<5));
    }
    Ips1 = I1 / (FSample*PDItime);  // Normalize accumulated integration
    Qps1 = Q1 / (FSample*PDItime);  // Convenient time to convert to double
@@ -49,9 +49,9 @@ int main() {
    for (n=0; n<FSample*PDItime; n++) {
     ref.clk();
     out.clk();
-    SampleData = ref.sine(ref.idx);
-    I2 += SampleData * out.sine(out.idx);
-    Q2 += SampleData * out.cosine(out.idx);
+    SampleData = ref.sine(ref.idx) * (1<<5);
+    I2 += SampleData * round(out.sine(out.idx) * (1<<5));
+    Q2 += SampleData * round(out.cosine(out.idx)*(1<<5));
    }
    Ips2 = I2 / (FSample*PDItime);
    Qps2 = Q2 / (FSample*PDItime);
